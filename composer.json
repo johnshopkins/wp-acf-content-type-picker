@@ -1,0 +1,24 @@
+{
+    "name": "johnshopkins/wp-acf-content-type-picker",
+    "type": "wordpress-plugin",
+    "description": "",
+    "license": "MIT",
+    "homepage": "http://github.com/johnshopkins/wp-acf-content-type-picker",
+    "authors": [
+        {
+            "name": "johnshopkins",
+            "homepage": "https://github.com/johnshopkins"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4" : {
+            "ContentTypePicker\\" : ["src/", "tests/"]
+        }
+    }
+}
