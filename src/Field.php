@@ -54,26 +54,31 @@ class Field extends \acf_field
 
   protected function getContentTypes()
   {
-    $types = get_post_types(array(
+    return get_post_types(array(
       "public" => true
-    ));
-
-    print_r($types); die();
+    ), "objects");
   }
     
   public function create_field($field)
   {
     $value = $field["value"] ? $field["value"] : "inherit";
 
+    $multiple = "";
+    if($field["multiple"]) {
+      
+      $multiple = ' multiple="multiple" size="5" ';
+      $field['name'] .= '[]';
+    } 
+
     echo "<div class='acf-input-wrap'>";
-    echo '<select id="' . $field['id'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" >';
+    echo '<select id="' . $field['id'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" ' . $multiple . ' >';
 
-    $menus = $this->getMenus();
+    $types = $this->getContentTypes();
 
-    foreach($menus as $k => $v) {
+    foreach($types as $k => $v) {
 
-      $selected = $k == $value ? "selected='selected'" : "";
-      echo "<option value='{$k}' {$selected}>{$v}</option>";
+      $selected = in_array($k, $value) ? "selected='selected'" : "";
+      echo "<option value='{$k}' {$selected}>{$v->label}</option>";
     }
 
     echo "</select>";
