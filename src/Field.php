@@ -61,7 +61,7 @@ class Field extends \acf_field
     
   public function create_field($field)
   {
-    $value = $field["value"] ? $field["value"] : "inherit";
+    $value = is_array($field["value"]) ? $field["value"] : array($field["value"]);
 
     $multiple = "";
     if($field["multiple"]) {
