@@ -54,9 +54,7 @@ class Field extends \acf_field
 
   protected function getContentTypes()
   {
-    return get_post_types(array(
-      "public" => true
-    ), "objects");
+    return get_post_types(array("show_in_menu" => "content"), "objects");
   }
     
   public function create_field($field)
