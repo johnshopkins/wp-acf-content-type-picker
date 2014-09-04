@@ -2,7 +2,7 @@
     "name": "johnshopkins/wp-acf-content-type-picker",
     "type": "wordpress-plugin",
     "description": "",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "homepage": "http://github.com/johnshopkins/wp-acf-content-type-picker",
     "authors": [
