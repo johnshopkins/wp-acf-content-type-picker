@@ -32,6 +32,25 @@ class Field extends \acf_field
     ?>
     <tr class="field_option field_option_<?php echo $this->name; ?>">
       <td class="label">
+        <label><?php _e("Available Vocabs",'acf'); ?></label>
+        <p class="description"><?php _e("Choose content types to activate on this field.",'acf'); ?></p>
+      </td>
+      <td>
+        <?php
+
+        do_action('acf/create_field', array(
+          'type'      =>  'checkbox',
+          'name'      =>  'fields['.$key.'][content_types]',
+          'value'     =>  isset($field['content_types']) ? $field['content_types'] : 1,
+          'layout'    =>  'horizontal',
+          'choices'   =>  $this->getContentTypes()
+        ));
+        
+        ?>
+      </td>
+    </tr>
+    <tr class="field_option field_option_<?php echo $this->name; ?>">
+      <td class="label">
         <label><?php _e("Select multiple values?",'acf'); ?></label>
       </td>
       <td>
@@ -54,7 +73,13 @@ class Field extends \acf_field
 
   protected function getContentTypes()
   {
-    return get_post_types(array("show_in_menu" => "content"), "objects");
+    $types = get_post_types(array("publicly_queryable" => true), "obejcts");
+
+    foreach ($types as $type => &$details) {
+      $details = $details->label;
+    }
+
+    return $types;
   }
     
   public function create_field($field)
@@ -71,14 +96,18 @@ class Field extends \acf_field
     echo "<div class='acf-input-wrap'>";
     echo '<select id="' . $field['id'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" ' . $multiple . ' >';
 
-    $types = $this->getContentTypes();
+    $allTypes = $this->getContentTypes();
+    $availableTypes = $field["content_types"];
 
-    foreach($types as $k => $v) {
+    if (!empty($availableTypes)) {
 
-      $selected = in_array($k, $value) ? "selected='selected'" : "";
-      echo "<option value='{$k}' {$selected}>{$v->label}</option>";
+      foreach($availableTypes as $type) {
+
+        $selected = in_array($type, $value) ? "selected='selected'" : "";
+        echo "<option value='{$type}' {$selected}>{$allTypes[$type]}</option>";
+      }
     }
-
+    
     echo "</select>";
     echo "</div>";
   }
