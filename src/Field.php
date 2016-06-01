@@ -3,10 +3,9 @@
 namespace ContentTypePicker;
 
 class Field extends \acf_field
-{   
-  public $settings;
+{
   public $defaults;
-        
+
   public function __construct($logger)
   {
     $this->name = 'content_type_picker';
@@ -15,14 +14,8 @@ class Field extends \acf_field
     $this->defaults = array(
       "multiple" =>  0
     );
-    
-    parent::__construct();
 
-    $this->settings = array(
-        'path' => apply_filters('acf/helpers/get_path', __FILE__),
-        'dir' => apply_filters('acf/helpers/get_dir', __FILE__),
-        'version' => '1.0.0'
-    );
+    parent::__construct();
   }
 
   function create_options( $field )
@@ -45,7 +38,7 @@ class Field extends \acf_field
           'layout'    =>  'horizontal',
           'choices'   =>  $this->getContentTypes()
         ));
-        
+
         ?>
       </td>
     </tr>
@@ -54,7 +47,7 @@ class Field extends \acf_field
         <label><?php _e("Select multiple values?",'acf'); ?></label>
       </td>
       <td>
-        <?php 
+        <?php
         do_action('acf/create_field', array(
           'type'  =>  'radio',
           'name'  =>  'fields['.$key.'][multiple]',
@@ -81,17 +74,17 @@ class Field extends \acf_field
 
     return $types;
   }
-    
-  public function create_field($field)
+
+  public function render_field($field)
   {
     $value = is_array($field["value"]) ? $field["value"] : array($field["value"]);
 
     $multiple = "";
     if($field["multiple"]) {
-      
+
       $multiple = ' multiple="multiple" size="5" ';
       $field['name'] .= '[]';
-    } 
+    }
 
     echo "<div class='acf-input-wrap'>";
     echo '<select id="' . $field['id'] . '" class="' . $field['class'] . '" name="' . $field['name'] . '" ' . $multiple . ' >';
@@ -107,7 +100,7 @@ class Field extends \acf_field
         echo "<option value='{$type}' {$selected}>{$allTypes[$type]}</option>";
       }
     }
-    
+
     echo "</select>";
     echo "</div>";
   }

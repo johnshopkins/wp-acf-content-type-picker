@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: ContentTypePicker
-Description: 
+Description:
 Author: johnshopkins
 Version: 0.1
 */
@@ -14,7 +14,7 @@ class ContentTypePickerMain
   {
     $this->logger = $logger;
 
-    add_action('acf/register_fields', function () {
+    add_action('acf/include_field_types', function () {
       new \ContentTypePicker\Field($this->logger);
     });
   }
