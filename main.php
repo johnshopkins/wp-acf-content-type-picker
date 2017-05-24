@@ -20,4 +20,4 @@ class ContentTypePickerMain
   }
 }
 
-new ContentTypePickerMain($wp_logger);
+new ContentTypePickerMain($dependencies["logger_wp"]);
