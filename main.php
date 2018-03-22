@@ -19,5 +19,3 @@ class ContentTypePickerMain
     });
   }
 }
-
-new ContentTypePickerMain($dependencies["logger_wp"]);
